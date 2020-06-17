@@ -9,7 +9,7 @@ Interface of `arima` consists of only one function that takes a 1D vector with o
 
 ```javascript
 const arima = require('arima')
-const [pred, errors] = arima(ts, 20, {
+const [pred, errors] = arima.predict(ts, 20, {
   method: 0, // ARIMA method (Default: 0)
   optimizer: 6, // Optimization method (Default: 6)
   p: 1, // Number of Autoregressive coefficients

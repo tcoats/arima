@@ -4,11 +4,7 @@
   "description": "Univariate ARIMA model",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf wasm && rimraf wrapper",
-    "mkdirs": "mkdir wasm && mkdir wrapper",
-    "prepare-wasm": "node prepare-wasm.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run clean && npm run mkdirs && make build && npm run prepare-wasm"
+    "build": "docker run -it --rm -v `pwd`:/source/arima ubuntu sh -c /source/arima/build.sh"
   },
   "repository": {
     "type": "git",
@@ -16,15 +12,13 @@
   },
   "keywords": [
     "arima",
+    "sarima",
     "timeseries",
     "prediction",
     "forecasting",
     "statistics",
     "webassembly"
   ],
-  "devDependencies": {
-    "rimraf": "^3.0.2"
-  },
   "author": "Anton Zemlyansky",
   "license": "MIT",
   "dependencies": {}
