@@ -5,16 +5,24 @@
 extern "C" {
 #endif
 
-double* arima (
+double* calc_arima (
   double* ts,
   int p, int d, int q,
   int lin, int lout, int method, int opt, _Bool verbose);
 
-double* sarima (
+double* calc_sarima (
   double* ts,
   int p, int d, int q,
   int s, int P, int D, int Q,
   int lin, int lout, int method, int opt, _Bool verbose);
+
+double* calc_acf (
+  double* ts,
+  int lin, int lout, int method);
+
+double* calc_pacf (
+  double* ts,
+  int lin, int lout, int method);
 
 #ifdef __cplusplus
 }

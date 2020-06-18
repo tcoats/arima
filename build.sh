@@ -12,6 +12,6 @@ cd emsdk
 cd ../arima
 npm i
 CPATH=/usr/lib/llvm-10/include/openmp make
-echo 'Run "CPATH=/usr/lib/llvm-10/include/openmp npm run build" to rebuild.'
+echo 'Run "CPATH=/usr/lib/llvm-10/include/openmp make" to rebuild.'
 echo 'All finished!'
 exec bash

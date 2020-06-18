@@ -3,22 +3,14 @@
 #include "api.h"
 #include "../ctsa/header/ctsa.h"
 
-double* arima (
+double* calc_arima (
   double* ts,
   int p, int d, int q,
   int lin, int lout,
   int method, int opt, _Bool verbose) {
   arima_object obj;
 
-  /* Print input series
-  for (int i = 0; i < lin; i++) { printf("%d : %f \n", i, ts[i]); }
-  */
-
-  double *phi, *theta;
   double *res, *amse;
-
-  theta = (double*)malloc(sizeof(double) * q);
-  phi = (double*)malloc(sizeof(double) * p);
 
   obj = arima_init(p, d, q, lin);
 
@@ -35,28 +27,17 @@ double* arima (
     arima_summary(obj);
   }
 
-  free(phi);
-  free(theta);
-
   return res;
 }
 
-double* sarima (
+double* calc_sarima (
   double* ts,
   int p, int d, int q,
   int s, int P, int D, int Q,
   int lin, int lout, int method, int opt, _Bool verbose) {
   sarima_object obj;
 
-  /* Print input series
-  for (int i = 0; i < lin; i++) { printf("%d : %f \n", i, ts[i]); }
-  */
-
-  double *phi, *theta;
   double *res, *amse;
-
-  theta = (double*)malloc(sizeof(double) * q);
-  phi = (double*)malloc(sizeof(double) * p);
 
   obj = sarima_init(p, d, q, s, P, D, Q, lin);
 
@@ -73,8 +54,30 @@ double* sarima (
     sarima_summary(obj);
   }
 
-  free(phi);
-  free(theta);
+  return res;
+}
+
+double* calc_acf (
+  double* ts,
+  int lin, int lout, int method) {
+  double *res;
+
+  res = (double*)malloc(sizeof(double) * lout);
+
+  acvf_opt(ts, lin, method, res, lout);
+  acvf2acf(res, lout);
+
+  return res;
+}
+
+double* calc_pacf (
+  double* ts,
+  int lin, int lout, int method) {
+  double *res;
+
+  res = (double*)malloc(sizeof(double) * lout);
+
+  pacf_opt(ts, lin, method, res, lout);
 
   return res;
 }
