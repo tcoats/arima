@@ -1,14 +1,14 @@
 {
-  "name": "arima",
+  "name": "ctsa",
   "version": "0.1.0",
   "description": "Univariate ARIMA model",
   "main": "index.js",
   "scripts": {
-    "build": "docker run -it --rm -v `pwd`:/source/arima ubuntu sh -c /source/arima/build.sh"
+    "build": "docker run -it --rm -v `pwd`:/source/ctsa ubuntu sh -c /source/ctsa/build.sh"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zemlyansky/arima"
+    "url": "git+https://github.com/tcoats/ctsa"
   },
   "keywords": [
     "arima",
@@ -19,7 +19,7 @@
     "statistics",
     "webassembly"
   ],
-  "author": "Anton Zemlyansky",
+  "author": "Thomas Coats",
   "license": "MIT",
   "dependencies": {}
 }
