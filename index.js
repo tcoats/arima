@@ -96,7 +96,7 @@ const pacf_defaults = {
 }
 
 module.exports = {
-  predict(input, length, opts) {
+  arima(input, length, opts) {
     const options = Object.assign({}, arima_defaults, opts)
     const ts = writedoublearray(input)
     const addr = _arima(
@@ -112,7 +112,7 @@ module.exports = {
     )
     return readdoublearray(addr, length)
   },
-  spredict(input, length, opts) {
+  sarima(input, length, opts) {
     const options = Object.assign({}, sarima_defaults, opts)
     const ts = writedoublearray(input)
     const addr = _sarima(

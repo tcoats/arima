@@ -15,7 +15,7 @@ const acf = ctsa.acf(ts, 20, {
 const pacf = ctsa.pacf(ts, 20, {
   method: 0 // PACF method Yule-Walker Default
 })
-const [pred, errors] = ctsa.predict(ts, 20, {
+const [pred, errors] = ctsa.arima(ts, 20, {
   method: 0, // ARIMA method (Default: 0)
   optimizer: 6, // Optimization method (Default: 6)
   p: 1, // Number of Autoregressive coefficients
@@ -23,7 +23,7 @@ const [pred, errors] = ctsa.predict(ts, 20, {
   q: 1, // Number of Moving Average Coefficients
   verbose: true // Output model analysis to console
 })
-const [pred, errors] = ctsa.spredict(ts, 20, {
+const [pred, errors] = ctsa.sarima(ts, 20, {
   method: 0, // ARIMA method (Default: 0)
   optimizer: 6, // Optimization method (Default: 6)
   p: 1, // Number of Autoregressive coefficients
