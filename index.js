@@ -1,22 +1,32 @@
-const ctsa = require('./ctsa.js')
+let _arima = null
+let _sarima = null
+let _acf = null
+let _pacf = null
+let _promise = null
+let ctsa = require('./ctsa.js')
 
 const seq = n => Array(n).fill(null)
 
-const _arima = ctsa.cwrap('calc_arima', 'number', [
-  'array',
-  'number', 'number', 'number',
-  'number', 'number', 'number', 'number', 'boolean'])
-const _sarima = ctsa.cwrap('calc_sarima', 'number', [
-  'array',
-  'number', 'number', 'number',
-  'number', 'number', 'number', 'number',
-  'number', 'number', 'number', 'number', 'boolean'])
-const _acf = ctsa.cwrap('calc_acf', 'number', [
-  'array',
-  'number', 'number', 'number'])
-const _pacf = ctsa.cwrap('calc_pacf', 'number', [
-  'array',
-  'number', 'number', 'number'])
+;(async () => {
+  _promise = ctsa()
+  ctsa = await _promise
+
+  _arima = ctsa.cwrap('calc_arima', 'number', [
+    'array',
+    'number', 'number', 'number',
+    'number', 'number', 'number', 'number', 'boolean'])
+  _sarima = ctsa.cwrap('calc_sarima', 'number', [
+    'array',
+    'number', 'number', 'number',
+    'number', 'number', 'number', 'number',
+    'number', 'number', 'number', 'number', 'boolean'])
+  _acf = ctsa.cwrap('calc_acf', 'number', [
+    'array',
+    'number', 'number', 'number'])
+  _pacf = ctsa.cwrap('calc_pacf', 'number', [
+    'array',
+    'number', 'number', 'number'])
+})()
 
 const writedoublearray = arr => {
   const farr = arr.flat()
@@ -98,6 +108,7 @@ const pacf_defaults = {
 }
 
 module.exports = {
+  ready: _promise,
   arima(input, length, opts) {
     const options = Object.assign({}, arima_defaults, opts)
     const ts = writedoublearray(input)
@@ -135,6 +146,7 @@ module.exports = {
     return readdoublearray(addr, length)
   },
   acf(input, length, opts) {
+    if (length == null) length = input.length - 1
     const options = Object.assign({}, acf_defaults, opts)
     const ts = writedoublearray(input)
     const addr = _acf(
@@ -146,6 +158,7 @@ module.exports = {
     return readarray(addr, length)
   },
   pacf(input, length, opts) {
+    if (length == null) length = input.length - 1
     const options = Object.assign({}, pacf_defaults, opts)
     const ts = writedoublearray(input)
     const addr = _pacf(
