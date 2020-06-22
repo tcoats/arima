@@ -1,5 +1,7 @@
 const ctsa = require('./ctsa.js')
 
+const seq = n => Array(n).fill(null)
+
 const _arima = ctsa.cwrap('calc_arima', 'number', [
   'array',
   'number', 'number', 'number',
@@ -153,5 +155,14 @@ module.exports = {
       options.method
     )
     return readarray(addr, length)
+  },
+  // https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/diff
+  // https://github.com/wch/r-source/blob/5a156a0865362bb8381dcd69ac335f5174a4f60c/src/library/base/R/diff.R
+  diff(ts, lag = 1, differences = 1) {
+    if (lag < 1 || differences < 1) return ts
+    if (lag * differences >= ts.length) return []
+    return seq(differences).reduce(result =>
+      seq(result.length - lag).map((d, i) => result[i + lag] - result[i]),
+      ts)
   }
 }

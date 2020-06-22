@@ -9,6 +9,7 @@ Interface of `ctsa` consists of four functions that all take a 1D vector with ob
 
 ```javascript
 const ctsa = require('ctsa')
+const diff = ctsa.diff(ts, 1, 1) // lag, differences
 const acf = ctsa.acf(ts, 20, {
   method: 0 // ACF method Default
 })
